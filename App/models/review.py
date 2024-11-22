@@ -10,16 +10,16 @@ class Review(db.Model):
   createdByStaffID = db.Column(db.Integer, db.ForeignKey('staff.ID'))
   isPositive = db.Column(db.Boolean, nullable=False)
   dateCreated = db.Column(db.DateTime, default=datetime.utcnow)
-  points = db.Column(db.Integer, nullable=False)
+  starRating= db.Column(db.Integer, nullable=False)
   details = db.Column(db.String(400), nullable=False)
   studentSeen = db.Column(db.Boolean, nullable=False, default=False)
 
-  def __init__(self, staff, student, isPositive, points, details, studentSeen):
+  def __init__(self, staff, student, isPositive, starRating, details, studentSeen):
     self.createdByStaffID = staff.ID
     # self.student= student
     self.studentID = student.ID
     self.isPositive = isPositive
-    self.points = points
+    self.points = starRating
     self.details = details
     self.dateCreated = datetime.now()
     self.studentSeen = studentSeen
@@ -43,7 +43,7 @@ class Review(db.Model):
         "created":
         self.dateCreated.strftime("%d-%m-%Y %H:%M"),  #format the date/time
         "isPositive": self.isPositive,
-        "points": self.points,
+        "starRating": self.starRating,
         "details": self.details,
         "studentSeen": self.studentSeen
     }

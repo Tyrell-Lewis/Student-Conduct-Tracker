@@ -1,6 +1,6 @@
 from App.models import Karma
 from App.database import db
-from .review import (get_total_review_points)
+from .review import (get_total_positive_review_starRating, get_total_negative_review_starRating)
 from .accomplishment import (get_total_accomplishment_points)
 from .incidentReport import (get_total_incident_points)
 from .transcript import (calculate_academic_score)
