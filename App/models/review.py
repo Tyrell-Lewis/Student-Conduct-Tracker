@@ -19,7 +19,7 @@ class Review(db.Model):
     # self.student= student
     self.studentID = student.ID
     self.isPositive = isPositive
-    self.points = starRating
+    self.starRating = starRating
     self.details = details
     self.dateCreated = datetime.now()
     self.studentSeen = studentSeen
