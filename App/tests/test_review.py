@@ -15,7 +15,6 @@ from App.controllers import (
     delete_review,
     calculate_points_upvote,
     calculate_points_downvote,
-    get_total_review_points,
     get_review
 )
 '''
