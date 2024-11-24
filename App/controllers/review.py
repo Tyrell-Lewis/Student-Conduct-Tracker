@@ -2,7 +2,7 @@ from App.models import Review
 from App.database import db
 
 
-def create_review(staff, student, isPositive, starRating, details):
+def create_review(staff, student, starRating, details):
   if starRating is None:
         return False
   
@@ -95,3 +95,19 @@ def get_review(id):
     return review
   else:
     return None
+  
+# Get the count of unique reviewers (e.g., distinct staff or lecturers)
+def get_unique_reviewers_count(studentID):
+    # Query to get all reviews for the given student
+    reviews = db.session.query(Review).filter(Review.studentID == studentID).all()
+
+    # Use a set to store unique reviewers (staff or lecturer)
+    unique_reviewers = set()
+
+    # Loop through all reviews and add each unique staff/lecturer to the set
+    for review in reviews:
+        # Assuming each review has a 'staff' or 'lecturerID' field representing the reviewer
+        unique_reviewers.add(review.staff)  # 'staff' or 'lecturerID' should be the reviewer identifier
+
+    # Return the count of unique reviewers
+    return len(unique_reviewers)
