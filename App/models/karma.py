@@ -6,13 +6,63 @@ class Karma(db.Model):
   __tablename__ = "karma"
   karmaID = db.Column(db.Integer, primary_key=True)
   points = db.Column(db.Float, nullable=False, default=0.0)
-  academicPoints = db.Column(db.Float, nullable=False)
-  accomplishmentPoints = db.Column(db.Float, nullable=False, default=0.0)
-  incidentPoints = db.Column(db.Float, nullable=False, default=0.0)
-  reviewsPoints = db.Column(db.Float, nullable=False, default=0.0)
+  academicPoints = db.Column(db.Float, nullable=False) # unwanted attribute- removing causes import errors
+  accomplishmentPoints = db.Column(db.Float, nullable=False, default=0.0) # unwanted attribute- removing causes import errors
+  incidentPoints = db.Column(db.Float, nullable=False, default=0.0) # unwanted attribute- removing causes import errors
+  reviewsPoints = db.Column(db.Float, nullable=False, default=0.0) # unwanted attribute- removing causes import errors
   rank = db.Column(db.Integer, nullable=False, default=-99)
   studentID = db.Column(db.Integer, db.ForeignKey('student.ID',
                                                   use_alter=True))
+
+''' Removing unwanted attributes causes errors with importing wsgi.py
+  def __init__(self, points, reviewsPoints, rank, studentID):
+    self.points = points
+    self.reviewsPoints = reviewsPoints
+    self.rank = rank
+    self.studentID = studentID
+'''
+def __init__(self, points, academicPoints, accomplishmentPoints,
+               reviewsPoints, incidentPoints, rank, studentID):
+    self.points = points
+    self.academicPoints = academicPoints
+    self.accomplishmentPoints = accomplishmentPoints
+    self.reviewsPoints = reviewsPoints
+    self.incidentPoints = incidentPoints
+    self.rank = rank
+    self.studentID = studentID
+
+
+def calculate_total_points(self):
+    print("Calculating total points using only review points...")
+
+    # Multiplier for review points
+    review_multiplier = 1.0  # Complete weighting of karma depends on reviews, to be altered to include diversity of reviewers
+
+    # Calculation
+    print("Review Points:", self.reviewsPoints) 
+    print("Review Points Multiplier:", review_multiplier, "giving",
+          self.reviewsPoints, "*", review_multiplier, "=", self.reviewsPoints * review_multiplier)
+
+    self.points = round(self.reviewsPoints * review_multiplier, 2)
+
+    # Display the total points calculation
+    print("Total Karma Points:", self.points)
+
+
+def to_json(self):
+    return {
+        "karmaID": self.karmaID,
+        "score": self.points,
+        "academicPoints": self.academicPoints,
+        "accomplishmentPoints": self.accomplishmentPoints,
+        "reviewPoints": self.reviewsPoints,
+        "incidentPoints": self.incidentPoints,
+        "rank": self.rank,
+        "studentID": self.studentID
+    }
+
+
+''' Methods including unwanted attributes in karma calculations, simplified calculation given above
 
   def __init__(self, points, academicPoints, accomplishmentPoints,
                reviewsPoints, incidentPoints, rank, studentID):
@@ -24,6 +74,7 @@ class Karma(db.Model):
     self.rank = rank
     self.studentID = studentID
 
+  
   def calculate_total_points(self):
     # only review points
     if self.academicPoints == 0 and self.accomplishmentPoints == 0 and self.reviewsPoints != 0:
@@ -104,14 +155,6 @@ class Karma(db.Model):
       self.points = 0
       print("No attributes found for karma calculation.")
 
-  def to_json(self):
-    return {
-        "karmaID": self.karmaID,
-        "score": self.points,
-        "academicPoints": self.academicPoints,
-        "accomplishmentPoints": self.accomplishmentPoints,
-        "reviewPoints": self.reviewsPoints,
-        "incidentPoints": self.incidentPoints,
-        "rank": self.rank,
-        "studentID": self.studentID
-    }
+'''
+
+
