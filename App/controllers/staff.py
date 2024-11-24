@@ -63,8 +63,8 @@ def staff_edit_review(id, details):
             return False
 
 
-def staff_create_review(staff, student, isPositive, points, details):
-    if create_review(staff, student, isPositive, points,details):
+def staff_create_review(staff, student, starRating, details):
+    if create_review(staff, student, starRating,details):
         return True
     else:
         return False
