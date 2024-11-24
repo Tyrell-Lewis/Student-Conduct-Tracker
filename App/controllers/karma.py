@@ -41,7 +41,7 @@ def create_karma(studentID):
 
 def calculate_review_points(studentID):
   karma = get_karma(studentID)
-  review_points = get_total_review_points(studentID)
+  review_points = get_total_positive_review_starRating(studentID) + get_total_negative_review_starRating(studentID)
   if karma:
     karma.reviewsPoints = review_points
     db.session.commit()
@@ -49,7 +49,7 @@ def calculate_review_points(studentID):
   else:
     return False
 
-
+########### need to comment out these #####################################
 def calculate_accomplishment_points(studentID):
   karma = get_karma(studentID)
   accomplishmentPoints = get_total_accomplishment_points(studentID)
@@ -92,6 +92,8 @@ def calculate_academic_points(studentID):
       return False
   else:
     return False
+########### need to comment out these #####################################
+
 
 
 # calculate_total_points() is in the model itself
