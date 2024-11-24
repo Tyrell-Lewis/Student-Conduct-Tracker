@@ -118,14 +118,14 @@ def initialize():
 
   staff = get_staff_by_id(7)
   student1 = get_student_by_UniId(816031609)
-  create_review(staff, student1, True, 5, "Behaves very well in class!")
+  create_review(staff, student1, 5, "Behaves very well in class!")
 
   student2 = get_student_by_UniId(816016480)
-  create_review(staff, student2, True, 5, "Behaves very well in class!")
+  create_review(staff, student2, 5, "Behaves very well in class!")
   student3 = get_student_by_UniId(816026834)
-  create_review(staff, student3, True, 5, "Behaves very well in class!")
+  create_review(staff, student3, 5, "Behaves very well in class!")
   student4 = get_student_by_UniId(816030847)
-  create_review(staff, student4, True, 5, "Behaves very well in class!")
+  create_review(staff, student4, 5, "Behaves very well in class!")
   create_admin(username="admin",
                firstname="Admin",
                lastname="Admin",
