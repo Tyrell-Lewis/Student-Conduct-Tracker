@@ -49,7 +49,7 @@ def calculate_review_points(studentID):
   else:
     return False
 
-########### unwanted attributes #####################################
+
 def calculate_accomplishment_points(studentID):
   karma = get_karma(studentID)
   accomplishmentPoints = get_total_accomplishment_points(studentID)
@@ -92,8 +92,6 @@ def calculate_academic_points(studentID):
       return False
   else:
     return False
-########### unwanted attributes #####################################
-
 
 
 # calculate_total_points() is in the model itself
