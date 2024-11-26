@@ -78,7 +78,7 @@ class StaffIntegrationTests(unittest.TestCase):
         student = get_student_by_username("billy")
         staff = get_staff_by_id(1)
         assert staff is not None
-        assert staff_create_review(staff, student, True, 3, "Billy is good.") == True
+        assert staff_create_review(staff, student, 3, "Billy is good.") == True
 
     def test_staff_edit_review(self):
         review = get_review(1)
