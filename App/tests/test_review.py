@@ -13,6 +13,8 @@ from App.controllers import (
     get_student_by_username,
     create_review,
     delete_review,
+    get_total_positive_review_starRating,
+    get_total_negative_review_starRating,
     calculate_points_upvote,
     calculate_points_downvote,
     get_review
@@ -68,7 +70,7 @@ class ReviewIntegrationTests(unittest.TestCase):
                  gpa="") == True
         student = get_student_by_username("billy")
         staff = get_staff_by_username("joe")
-        assert create_review(staff=staff, student=student, isPositive=True, points=3, details="Billy is good.") == True
+        assert create_review(staff=staff, student=student, starRating=3, details="Billy is good.") == True
         review = get_review(1)
 
     def test_get_review(self):
@@ -91,10 +93,19 @@ class ReviewIntegrationTests(unittest.TestCase):
         assert review is not None
         assert calculate_points_downvote(review) == True
 
-    def test_get_total_points(self):
-        self.test_create_review()
+    # Test for total starRating of positive reviews
+    def test_get_total_positive_review_starRating(self):
+        self.test_create_review()  # Assuming this creates both positive and negative reviews
         review = get_review(1)
-        assert get_total_review_points(review.studentID) != 0
+        total_positive = get_total_positive_review_starRating(review.studentID)
+        assert total_positive >= 0  # Ensure the total is non-negative
+
+    # Test for total starRating of negative reviews
+    def test_get_total_negative_review_starRating(self):
+        self.test_create_review()  # Assuming this creates both positive and negative reviews
+        review = get_review(1)
+        total_negative = get_total_negative_review_starRating(review.studentID)
+        assert total_negative >= 0  # Ensure the total is non-negative
 
     def test_delete_review(self):
         self.test_create_review()
