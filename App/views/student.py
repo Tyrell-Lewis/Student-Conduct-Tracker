@@ -125,7 +125,7 @@ def student_page():
     print("incident points:" + str(karma.incidentPoints))
     #Points: academic (0.4),accomplishment (0,3 shared)
     update_total_points(student.ID)
-    print('total karma points', karma.points)
+    print('total karma points', karma.reviewsPoints)
     #updaing ranks
     calculate_ranks()
     #print(karma.to_json())

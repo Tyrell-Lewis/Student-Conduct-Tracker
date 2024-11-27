@@ -107,7 +107,7 @@ def get_unique_reviewers_count(studentID):
     # Loop through all reviews and add each unique staff/lecturer to the set
     for review in reviews:
         # Assuming each review has a 'staff' or 'lecturerID' field representing the reviewer
-        unique_reviewers.add(review.staff)  # 'staff' or 'lecturerID' should be the reviewer identifier
+        unique_reviewers.add(review.createdByStaffID)  # 'staff' or 'lecturerID' should be the reviewer identifier
 
     # Return the count of unique reviewers
     return len(unique_reviewers)

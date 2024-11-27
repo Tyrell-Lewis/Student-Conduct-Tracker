@@ -120,6 +120,9 @@ def initialize():
   staff = get_staff_by_id(7)
   student1 = get_student_by_UniId(816031609)
   create_review(staff, student1, 5, "Behaves very well in class!")
+  create_review(staff, student1, 2, "Late to class")
+  create_review(staff, student1, 5, "Good CW grades")
+  create_review(staff, student1, 3, "Okay Final grades")
 
   student2 = get_student_by_UniId(816016480)
   create_review(staff, student2, 5, "Behaves very well in class!")
