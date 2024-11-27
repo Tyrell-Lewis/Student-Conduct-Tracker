@@ -24,6 +24,7 @@ class Student(User):
   transcripts = db.relationship('Transcript', backref='student', lazy='joined')
   badges = db.relationship('Badges', backref='studentbadge', lazy='joined')
 
+  
   karmaID = db.Column(db.Integer, db.ForeignKey('karma.karmaID'))
 
   __mapper_args__ = {"polymorphic_identity": "student"}

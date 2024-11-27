@@ -37,7 +37,7 @@ def checkReviews(student):
   reviews = Review.query.filter_by(studentID=student.ID).all()
 
   for review in reviews:
-    if 10 <= review.points <= 15:
+    if 10 <= review.starRating <= 15:
       name = "Review Rockstar"
       studentID = student.ID
       details = "Awarded to students who receive positive reviews resulting in between 10 and 15 points. This badge celebrates their ability to positively impact their peers and contribute to a supportive academic environment."
@@ -58,7 +58,7 @@ def checkReviews(student):
         db.session.commit()
         return "Badge assigned"
 
-    if 15 < review.points <= 20:
+    if 15 < review.starRating <= 20:
       name = "Feedback Phenom"
       studentID = student.ID
       details = "Awarded to students who receive positive reviews resulting in between 15 and 20 points. This badge recognizes their outstanding contributions and dedication to excellence in their academic endeavors."
@@ -79,7 +79,7 @@ def checkReviews(student):
         db.session.commit()
         return "Badge assigned"
 
-    if review.points > 20:
+    if review.starRating > 20:
       name = "Review Royalty"
       studentID = student.ID
       details = "Awarded to students who receive positive reviews resulting in more than 20 points. This badge signifies their exemplary leadership, dedication, and positive influence within the academic community."

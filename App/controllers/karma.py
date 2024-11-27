@@ -118,7 +118,7 @@ def update_total_points(studentID):
   karma = get_karma(studentID)
   if karma:
     #print("calculating total points of student: ", studentID)
-    karma.calculate_total_points()
+    karma.points
     db.session.commit()
     return True
   #print("student not found with id", studentID)
