@@ -5,12 +5,15 @@ class KarmaInterface(ABC):
    
    @abstractmethod
    def attach(self):
-      return
+      """Attach a student to the Karma system"""
+      pass
 
    @abstractmethod
    def detach(self):
-      return
+      """Detach a student from the Karma system"""
+      pass
 
    @abstractmethod
-   def notifyStudents(self):
-      return
+   def notify(self):
+      """Notify all attached students"""
+      pass
