@@ -1,8 +1,13 @@
 from App.database import db
+from sqlalchemy.ext.declarative import declarative_base
 from .student import Student
+from .karmaInterface import KarmaInterface
 
 
-class Karma(db.Model):
+
+
+class Karma(db.Model, KarmaInterface):
+
   __tablename__ = "karma"
   karmaID = db.Column(db.Integer, primary_key=True)
   points = db.Column(db.Float, nullable=False, default=0.0)
@@ -30,8 +35,8 @@ def __init__(self, points, academicPoints, accomplishmentPoints,
     self.incidentPoints = incidentPoints
     self.rank = rank
     self.studentID = studentID
-
-
+    
+    
 def calculate_total_points(self):
     print("Calculating total points using only review points...")
 
@@ -60,6 +65,22 @@ def to_json(self):
         "rank": self.rank,
         "studentID": self.studentID
     }
+
+
+#added
+def attach(self, Student):
+    self.studentID = Student.studentID
+    return
+
+
+def detach(self):
+    self.studentID = ""
+    return
+
+
+def notify(self):
+    """Notify all attached students"""
+    return
 
 
 ''' Methods including unwanted attributes in karma calculations, simplified calculation given above

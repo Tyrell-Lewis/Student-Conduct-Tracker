@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 # creating Karma Interface
-class KarmaInterface(ABC):
+class KarmaInterface():
    
    @abstractmethod
    def attach(self):
