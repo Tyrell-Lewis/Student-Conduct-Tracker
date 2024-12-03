@@ -1,6 +1,7 @@
 from App.database import db
 from .user import User
 from .studentInterface import StudentInterface
+from .karma import Karma
 
 class Student(User, StudentInterface):
   __tablename__ = 'student'
@@ -92,6 +93,8 @@ class Student(User, StudentInterface):
         karma.rank if karma else None,
     }
 
-  def update(self):
-      """Update the karma points for the student"""
+  def update(self, rank):
+      """Update the karma rank for the student"""
+      karma = Karma.query.filter_by(studentID=self.studentID).first()
+      karma.rank = rank
       return
