@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 # creating Student Interface
-class StudentInterface(ABC):
+class StudentInterface():
    
    @abstractmethod
    def update(self):

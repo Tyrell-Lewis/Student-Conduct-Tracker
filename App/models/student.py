@@ -1,8 +1,8 @@
 from App.database import db
 from .user import User
+from .studentInterface import StudentInterface
 
-
-class Student(User):
+class Student(User, StudentInterface):
   __tablename__ = 'student'
   ID = db.Column(db.Integer, db.ForeignKey('user.ID'), primary_key=True)
   UniId = db.Column(db.String(10), nullable=False)
@@ -91,3 +91,7 @@ class Student(User):
         "karmaRank":
         karma.rank if karma else None,
     }
+
+  def update(self):
+      """Update the karma points for the student"""
+      return
