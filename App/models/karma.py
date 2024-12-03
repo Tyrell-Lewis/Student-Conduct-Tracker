@@ -1,6 +1,5 @@
 from App.database import db
 from sqlalchemy.ext.declarative import declarative_base
-from .student import Student
 from .karmaInterface import KarmaInterface
 
 
@@ -80,7 +79,7 @@ def detach(self):
 
 def notify(self):
     """Notify all attached students"""
-    return
+    return "Karma has been updated"
 
 
 ''' Methods including unwanted attributes in karma calculations, simplified calculation given above
