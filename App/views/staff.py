@@ -105,7 +105,7 @@ def createReview():
     positive = False
 
   if student:
-    review = create_review(staff, student, positive, points, details)
+    review = create_review(staff, student, points, details)
     message = f"You have created a review on Student: {studentName}"
     return render_template('Stafflandingpage.html', message=message)
   else:
@@ -340,7 +340,8 @@ def getStudentProfile(uniID):
     update_total_points(karma.karmaID)
     #updaing ranks
     calculate_ranks()
-
+    student.update(karma.rank) #202412 student updates karma rank
+    karma.notify()
   transcripts = get_transcript(student.UniId)
   numAs = get_total_As(student.UniId)
 
