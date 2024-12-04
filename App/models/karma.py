@@ -24,8 +24,6 @@ class Karma(db.Model, KarmaInterface):
     self.rank = rank
     self.studentID = studentID
   """
-  def tp():
-   return
 
   def __init__(self, points, academicPoints, accomplishmentPoints,
                reviewsPoints, incidentPoints, rank, studentID):
@@ -92,7 +90,8 @@ class Karma(db.Model, KarmaInterface):
 
   def notify(self):
     """Notify all attached students"""
-    return "Karma has been updated"
+    print("Karma has been updated")
+    return True
 
 
 ''' Methods including unwanted attributes in karma calculations, simplified calculation given above

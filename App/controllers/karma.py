@@ -50,7 +50,8 @@ def calculate_review_points(studentID):
   # Unique reviewer count: integrity factor for karma calculation
 
   unique_reviewers_count = get_unique_reviewers_count(studentID)
-  integrity_factor = 1.0 + (unique_reviewers_count * 0.1) # bonus for more diverse reviewers
+  #202412 Added cap of 5 for unique reviewers
+  integrity_factor = 1.0 + (min(unique_reviewers_count,5) * 0.1) # bonus for more diverse reviewers
 
   review_points = (positive_star_rating * 1.0) + (negative_star_rating * -0.5)
 
@@ -118,7 +119,7 @@ def update_total_points(studentID):
   karma = get_karma(studentID)
   if karma:
     #print("calculating total points of student: ", studentID)
-    karma.points
+    karma.points = karma.reviewsPoints
     db.session.commit()
     return True
   #print("student not found with id", studentID)

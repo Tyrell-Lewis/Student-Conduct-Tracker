@@ -62,3 +62,8 @@ class KarmaIntegrationTests(unittest.TestCase):
 
     def test_update_karma(self):
         assert update_review_points(1) == True
+
+    def test_karma_notify(self):
+        karma = get_karma(1)
+        
+        assert karma.notify() == True
