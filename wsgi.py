@@ -1,18 +1,20 @@
 import click, pytest, sys
 import nltk
+from flask import current_app
 from flask import Flask
 from flask.cli import with_appcontext, AppGroup
 
 from App.database import db, get_migrate
 from App.main import create_app
-from App.models import Student, Karma
+from App.models import Student, Karma, Badges
 from App.controllers import (
     create_student, create_staff, create_admin, get_all_users_json,
     get_all_users, get_transcript, get_student_by_UniId, setup_nltk,
     analyze_sentiment, get_total_As, get_total_courses_attempted,
     calculate_academic_score, create_review, create_incident_report,
     create_accomplishment, get_staff_by_id, get_student_by_id,
-    create_job_recommendation, create_karma, get_karma)
+    create_job_recommendation, create_karma, get_karma, create_badge, 
+    calculate_review_points, calculate_accomplishment_points, calculate_incident_points,calculate_academic_points, calculate_ranks, update_total_points)
 
 # This commands file allow you to create convenient CLI commands for testing controllers
 
@@ -395,3 +397,54 @@ def print_academic_weight(type):
 
 
 app.cli.add_command(test)
+
+
+# ---- CLI commands ---- #
+
+# 1 add admin user
+
+@app.cli.command('add_admin')
+@click.argument('username')
+@click.argument('firstname')
+@click.argument('lastname')
+@click.argument('email')
+@click.argument('password')
+@click.argument('faculty')
+def add_admin(username, firstname, lastname, email, password, faculty):
+    
+    success = create_admin(username, firstname, lastname, email, password, faculty)
+    if success:
+        click.echo(f"Admin {username} created successfully!")
+    else:
+        click.echo(f"Failed to create admin {username}.")
+        
+        
+
+# 2 search for student (by id, fname, or lname)
+
+@app.cli.command("search_student", help="Search for a student by UniId, first name, or last name")
+@click.argument("search_term")
+def search_student(search_term):
+
+    students = Student.query.filter(
+        (Student.UniId == search_term) |
+        (Student.firstname.contains(search_term)) |
+        (Student.lastname.contains(search_term))
+    ).all()
+
+    if students:
+        for student in students:
+            print(f"Found student: {student.fullname}, UniId: {student.UniId}")
+    else:
+        print(f"No student found for search term: {search_term}")
+
+
+# 3 notify students
+
+@app.cli.command("notify_students", help="Notify students")
+@click.argument("message")
+def notify_students(message):
+    students = Student.query.all()
+    for student in students:
+        print(f"Notifying {student.fullname} with message: {message}")
+    print("Notifications sent to all students.")
