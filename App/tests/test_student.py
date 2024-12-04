@@ -15,7 +15,8 @@ from App.controllers import (
     get_all_students_json,
     update_admittedTerm,
     update_yearofStudy,
-    update_degree
+    update_degree,
+    create_karma
 )
 
 '''
@@ -101,3 +102,11 @@ class StudentIntegrationTests(unittest.TestCase):
     
     def test_update_degree(self):
         assert update_degree(1, "BSc Computer Science Special") == True
+
+    def test_student_update(self):
+        student = Student(username="billy", firstname="Billy", lastname="John", email="billy@example.com", password="billypass", faculty="FST", admittedTerm="2022/2023", UniId="816000000", degree="BSc Computer Science", gpa="3.5")
+        create_karma(student.ID)
+        student.karmaID = get_karma(student.ID).karmaID
+        student.update(2)
+        assert get_karma(student.ID).rank == 2
+        
