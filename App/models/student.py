@@ -93,8 +93,13 @@ class Student(User, StudentInterface):
         karma.rank if karma else None,
     }
 
+  def get_karma(self):
+      # Retrieve the karma record for this student via the karmaID
+      karma = Karma.query.get(self.karmaID)
+      return karma
+
   def update(self, rank):
       """Update the karma rank for the student"""
-      karma = Karma.query.filter_by(studentID=self.studentID).first()
-      karma.rank = rank
-      return
+      karma = self.get_karma()
+      return karma.updateKarmaLevel(rank)
+      
