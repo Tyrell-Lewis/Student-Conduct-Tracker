@@ -1,8 +1,11 @@
 from App.database import db
-from .student import Student
+from .karmaInterface import KarmaInterface
 
 
-class Karma(db.Model):
+
+#class Karma(db.Model, KarmaInterface):
+class Karma(db.Model, KarmaInterface):
+
   __tablename__ = "karma"
   karmaID = db.Column(db.Integer, primary_key=True)
   points = db.Column(db.Float, nullable=False, default=0.0)
@@ -11,18 +14,22 @@ class Karma(db.Model):
   incidentPoints = db.Column(db.Float, nullable=False, default=0.0) # unwanted attribute- removing causes import errors
   reviewsPoints = db.Column(db.Float, nullable=False, default=0.0) # unwanted attribute- removing causes import errors
   rank = db.Column(db.Integer, nullable=False, default=-99)
-  studentID = db.Column(db.Integer, db.ForeignKey('student.ID',
-                                                  use_alter=True))
+  studentID = db.Column(db.Integer, db.ForeignKey('student.ID', use_alter=True))
 
-''' Removing unwanted attributes causes errors with importing wsgi.py
+
+  """ Removing unwanted attributes causes errors with importing wsgi.py
   def __init__(self, points, reviewsPoints, rank, studentID):
     self.points = points
     self.reviewsPoints = reviewsPoints
     self.rank = rank
     self.studentID = studentID
-'''
-def __init__(self, points, academicPoints, accomplishmentPoints,
+  """
+  def tp():
+   return
+
+  def __init__(self, points, academicPoints, accomplishmentPoints,
                reviewsPoints, incidentPoints, rank, studentID):
+
     self.points = points
     self.academicPoints = academicPoints
     self.accomplishmentPoints = accomplishmentPoints
@@ -30,9 +37,9 @@ def __init__(self, points, academicPoints, accomplishmentPoints,
     self.incidentPoints = incidentPoints
     self.rank = rank
     self.studentID = studentID
-
-
-def calculate_total_points(self):
+    
+    
+  def calculate_total_points(self):
     print("Calculating total points using only review points...")
 
     # Multiplier for review points
@@ -49,7 +56,17 @@ def calculate_total_points(self):
     print("Total Karma Points:", self.points)
 
 
-def to_json(self):
+  #updates Karma Level
+  def updateKarmaLevel(self, rank):
+    if (self.rank != rank):
+       self.rank = rank
+       db.session.add(self)
+       db.session.commit()       
+       return True
+    else:
+       return False
+
+  def to_json(self):
     return {
         "karmaID": self.karmaID,
         "score": self.points,
@@ -60,6 +77,22 @@ def to_json(self):
         "rank": self.rank,
         "studentID": self.studentID
     }
+
+
+  #added
+  def attach(self, Student):
+    self.studentID = Student.studentID
+    return
+
+
+  def detach(self):
+    self.studentID = ""
+    return
+
+
+  def notify(self):
+    """Notify all attached students"""
+    return "Karma has been updated"
 
 
 ''' Methods including unwanted attributes in karma calculations, simplified calculation given above
