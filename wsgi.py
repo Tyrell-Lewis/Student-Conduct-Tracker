@@ -6,7 +6,7 @@ from flask.cli import with_appcontext, AppGroup
 
 from App.database import db, get_migrate
 from App.main import create_app
-from App.models import Student, Karma, Badges
+from App.models import Student, Karma, Badges, Accomplishment
 from App.controllers import (
     create_student, create_staff, create_admin, get_all_users_json,
     get_all_users, get_transcript, get_student_by_UniId, setup_nltk,
@@ -14,7 +14,8 @@ from App.controllers import (
     calculate_academic_score, create_review, create_incident_report,
     create_accomplishment, get_staff_by_id, get_student_by_id,
     create_job_recommendation, create_karma, get_karma, create_badge, 
-    calculate_review_points, calculate_accomplishment_points, calculate_incident_points,calculate_academic_points, calculate_ranks, update_total_points)
+    calculate_review_points, calculate_accomplishment_points, calculate_incident_points,calculate_academic_points, calculate_ranks, update_total_points,
+    get_accomplishments_by_studentID, get_staff_by_name)
 
 # This commands file allow you to create convenient CLI commands for testing controllers
 
@@ -448,3 +449,13 @@ def notify_students(message):
     for student in students:
         print(f"Notifying {student.fullname} with message: {message}")
     print("Notifications sent to all students.")
+    
+    
+# 4 manage accomplishments
+
+@app.cli.command("generate_leaderboard", help="Generate leaderboard of students")
+def generate_leaderboard():
+    students = Student.query.order_by(Student.gpa.desc()).all()  # Or use karma points if you prefer
+    print("Leaderboard:")
+    for student in students:
+        print(f"{student.fullname} - GPA: {student.gpa}")
