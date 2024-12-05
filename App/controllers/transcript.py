@@ -131,7 +131,7 @@ def calculate_academic_score(studentID):
     # print("Academic score:", academic_score * 0.4, ' / 0.4 weight')
     return round(100 * academic_score, 2) # multiplying by 100 to normalize to 100 points
   else:
-    print("Student not found with ID:")
+    #print("Student not found with ID:")
     # print('Student with UniId:', UniId, 'not found')
     return 0
 
