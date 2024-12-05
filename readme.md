@@ -82,6 +82,19 @@ app.cli.add_command(user_cli) # add the group to the cli
 
 Then execute the command invoking with flask cli with command name and the relevant parameters
 
+#Updated Flask CLI Commands for Refactor
+
+
+```bash
+$ flask add_admin <username> <firstname> <lastname> <email> <password> <faculty>
+$ flask search_student Billy 
+$ flask notify_students <message>
+$ flask update_karma <student_id>
+$ flask assign_badge <student_id> <badge_name> <details> <image_link> <student_seen>
+$ flask generate_leaderboard
+$ flask manage_accomplishment <action> <accomplishment_details>
+```
+
 ```bash
 $ flask user create bob bobpass
 ```
